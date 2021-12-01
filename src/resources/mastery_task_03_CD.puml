@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+Packaging <|-- Box
+Packaging <|-- PolyBag
+Material --o Packaging
+
+class Packaging {
+
+    + getMaterial() : Material
+    + getLength() : BigDecimal
+    + getWidth() : BigDecimal
+    + getHeight() : BigDecimal
+    + canFitItem(item : Item) : boolean
+    + getMass() : BigDecimal
+    + equals(o : Object) : boolean
+    + hashCode() : int
+}
+
+class Box {
+    - length : int
+    - width : int
+    - height : int
+    - CORRUGATE : Material
+
+    + canFitItem(item : Item) : boolean
+    + getMass() : BigDecimal
+}
+
+class PolyBag {
+
+    - LAMINATED_PLASTIC : Material
+    - volume : int
+    + canFitItem(item : Item) : boolean
+    + getMass() : BigDecimal
+}
+
+class Material {
+    CORRUGATE
+    LAMINATED_PLASTIC
+
+}
+
+'class ShipmentCost {
+'}
+
+'class ShipmentOption {
+'}
+
+'class FcPackagingOption {
+'}
+
+'class FulfillmentCenter {
+'}
+
+'class Item {
+'}
+
+
+
+@enduml
