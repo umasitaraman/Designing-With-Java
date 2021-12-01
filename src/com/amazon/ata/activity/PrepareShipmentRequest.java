@@ -245,11 +245,11 @@ public class PrepareShipmentRequest {
         /**
          * Sets the {@code height} and returns a reference to this Builder so that the methods can be chained together.
          *
-         * @param fcCode the {@code fcCode} to set
+         * @param newfcCode the {@code fcCode} to set
          * @return a reference to this Builder
          */
-        public Builder withFcCode(String fcCode) {
-            this.fcCode = fcCode;
+        public Builder withFcCode(String newfcCode) {
+            this.fcCode = newfcCode;
             return this;
         }
 

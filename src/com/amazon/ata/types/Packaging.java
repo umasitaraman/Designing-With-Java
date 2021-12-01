@@ -58,24 +58,13 @@ public class Packaging {
         return material;
     }
 
-//    public BigDecimal getLength() {
-//        return length;
-//    }
-//
-//    public BigDecimal getWidth() {
-//        return width;
-//    }
-//
-//    public BigDecimal getHeight() {
-//        return height;
-//    }
-
     /**
      * Returns whether the given item will fit in this packaging.
      *
      * @param item the item to test fit for
      * @return whether the item will fit in this packaging
-     */
+     * */
+
     public boolean canFitItem(Item item) {
         if (material == Material.CORRUGATE) {
             return this.length.compareTo(item.getLength()) > 0 &&
