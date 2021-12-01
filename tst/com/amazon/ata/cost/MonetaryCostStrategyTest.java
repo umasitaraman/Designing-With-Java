@@ -13,11 +13,11 @@ public class MonetaryCostStrategyTest {
 //    private static final Packaging BOX_10x10x20 =
 //        new Packaging(Material.CORRUGATE, BigDecimal.valueOf(10), BigDecimal.valueOf(10), BigDecimal.valueOf(20));
 
-    private static final Packaging BOX_10x10x20 =
+    private static final Box BOX_10x10x20 =
         new Box(Material.CORRUGATE, BigDecimal.valueOf(10), BigDecimal.valueOf(10), BigDecimal.valueOf(20));
 
-    private static final Packaging POLYBAG_10x10x20 =
-            new PolyBag(Material.LAMINATED_PLASTIC, BigDecimal.valueOf(10), BigDecimal.valueOf(10), BigDecimal.valueOf(20));
+    private static final PolyBag POLYBAG_10x10x20 =
+            new PolyBag(Material.LAMINATED_PLASTIC, BigDecimal.valueOf(2000));
 
     private MonetaryCostStrategy strategy;
 

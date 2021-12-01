@@ -13,12 +13,14 @@ public class PolyBagTest {
     private BigDecimal packagingLength = BigDecimal.valueOf(5.6);
     private BigDecimal packagingWidth = BigDecimal.valueOf(3.3);
     private BigDecimal packagingHeight = BigDecimal.valueOf(8.1);
+    private BigDecimal volume = (packagingLength.multiply(packagingWidth).multiply(packagingHeight));
+
 
     private Packaging packaging;
 
     @BeforeEach
     public void setUp() {
-        packaging = new PolyBag(packagingMaterial, packagingLength, packagingWidth, packagingHeight);
+        packaging = new PolyBag(packagingMaterial, volume);
     }
 
     @Test
@@ -88,7 +90,7 @@ public class PolyBagTest {
     @Test
     public void getMass_calculatesMass_returnsCorrectMass() {
         // GIVEN
-        packaging = new PolyBag(Material.LAMINATED_PLASTIC, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.valueOf(20));
+        packaging = new PolyBag(Material.LAMINATED_PLASTIC, BigDecimal.valueOf(2000));
 
         // WHEN
         BigDecimal mass = packaging.getMass();

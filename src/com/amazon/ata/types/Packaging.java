@@ -1,7 +1,7 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+//import java.util.Objects;
 
 /**
  * Represents a packaging option.
@@ -19,17 +19,17 @@ public class Packaging {
     /**
      * This packaging's length.
      */
-    private BigDecimal length;
+    //private BigDecimal length;
 
     /**
      * This packaging's smallest dimension.
      */
-    private BigDecimal width;
+    //private BigDecimal width;
 
     /**
      * This packaging's largest dimension.
      */
-    private BigDecimal height;
+    //private BigDecimal height;
 
     /**
      * Instantiates a new Packaging object.
@@ -38,12 +38,12 @@ public class Packaging {
      * @param width - the width of the package
      * @param height - the height of the package
      */
-    public Packaging(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
-        this.material = material;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-    }
+    //    public Packaging(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
+    //        this.material = material;
+    //        this.length = length;
+    //        this.width = width;
+    //        this.height = height;
+    //    }
 
     /**
      *
@@ -66,11 +66,6 @@ public class Packaging {
      * */
 
     public boolean canFitItem(Item item) {
-        if (material == Material.CORRUGATE) {
-            return this.length.compareTo(item.getLength()) > 0 &&
-                    this.width.compareTo(item.getWidth()) > 0 &&
-                    this.height.compareTo(item.getHeight()) > 0;
-        }
         return false;
     }
 
@@ -79,16 +74,6 @@ public class Packaging {
      * @return the mass of the packaging
      */
     public BigDecimal getMass() {
-        if (material == Material.CORRUGATE) {
-            BigDecimal two = BigDecimal.valueOf(2);
-
-            // For simplicity, we ignore overlapping flaps
-            BigDecimal endsArea = length.multiply(width).multiply(two);
-            BigDecimal shortSidesArea = length.multiply(height).multiply(two);
-            BigDecimal longSidesArea = width.multiply(height).multiply(two);
-
-            return endsArea.add(shortSidesArea).add(longSidesArea);
-        }
         return BigDecimal.valueOf(0);
     }
 
@@ -113,8 +98,8 @@ public class Packaging {
         return getMaterial() == packaging.getMaterial();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getMaterial(), this.length, this.width, this.height);
-    }
+    //@Override
+    //public int hashCode() {
+    //    return Objects.hash(getMaterial(), this.getlength(), this.getwidth(), this.getheight());
+    //}
 }

@@ -10,14 +10,20 @@ public class PolyBag extends Packaging {
      * Instantiates a new Packaging object.
      *
      * @param material - the Material of the package
-     * @param length - the length of the package
-     * @param width - the width of the package
-     * @param height - the height of the package
+    // * @param length - the length of the package
+    // * @param width - the width of the package
+    // * @param height - the height of the package
+     * @param volume - the volume of the package
      *
      */
-    public PolyBag(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
+    //    public PolyBag(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
+    //        super(material);
+    //        this.volume = length.multiply(width).multiply(height);
+    //    }
+
+    public PolyBag(Material material, BigDecimal volume) {
         super(material);
-        this.volume = length.multiply(width).multiply(height);
+        this.volume = volume;
     }
 
     @Override
