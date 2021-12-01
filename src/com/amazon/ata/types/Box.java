@@ -10,18 +10,6 @@ public class Box extends Packaging {
     private BigDecimal width;
     private BigDecimal height;
 
-    public BigDecimal getLength() {
-        return length;
-    }
-
-    public BigDecimal getWidth() {
-        return width;
-    }
-
-    public BigDecimal getHeight() {
-        return height;
-    }
-
     /**
      * Instantiates a new Packaging object.
      *
@@ -35,6 +23,18 @@ public class Box extends Packaging {
         this.height = height;
         this.width = width;
         this.length = length;
+    }
+
+    public BigDecimal getLength() {
+        return length;
+    }
+
+    public BigDecimal getWidth() {
+        return width;
+    }
+
+    public BigDecimal getHeight() {
+        return height;
     }
 
     @Override

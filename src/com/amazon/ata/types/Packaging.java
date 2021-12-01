@@ -45,6 +45,11 @@ public class Packaging {
         this.height = height;
     }
 
+    /**
+     *
+     * @param material Constructor that just takes in the material type.
+     */
+
     public Packaging(Material material) {
         this.material = material;
     }
@@ -74,8 +79,8 @@ public class Packaging {
     public boolean canFitItem(Item item) {
         if (material == Material.CORRUGATE) {
             return this.length.compareTo(item.getLength()) > 0 &&
-                this.width.compareTo(item.getWidth()) > 0 &&
-                this.height.compareTo(item.getHeight()) > 0;
+                    this.width.compareTo(item.getWidth()) > 0 &&
+                    this.height.compareTo(item.getHeight()) > 0;
         }
         return false;
     }
