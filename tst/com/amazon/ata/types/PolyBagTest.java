@@ -24,22 +24,6 @@ public class PolyBagTest {
     }
 
     @Test
-    public void canFitItem_itemLengthTooLong_doesNotFit() {
-        // GIVEN
-        Item item = Item.builder()
-                .withLength(packagingLength.add(BigDecimal.ONE))
-                .withWidth(packagingWidth)
-                .withHeight(packagingHeight)
-                .build();
-
-        // WHEN
-        boolean canFit = packaging.canFitItem(item);
-
-        // THEN
-        assertFalse(canFit, "Item with longer length than package should not fit in the package.");
-    }
-
-    @Test
     public void canFitItem_itemWithGreaterVolume_doesNotFit() {
         // GIVEN
         Item item = Item.builder()

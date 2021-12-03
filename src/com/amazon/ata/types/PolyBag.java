@@ -16,10 +16,6 @@ public class PolyBag extends Packaging {
      * @param volume - the volume of the package
      *
      */
-    //    public PolyBag(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
-    //        super(material);
-    //        this.volume = length.multiply(width).multiply(height);
-    //    }
 
     public PolyBag(Material material, BigDecimal volume) {
         super(material);

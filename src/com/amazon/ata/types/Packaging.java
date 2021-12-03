@@ -1,7 +1,7 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
-//import java.util.Objects;
+import java.util.Objects;
 
 /**
  * Represents a packaging option.
@@ -10,40 +10,11 @@ import java.math.BigDecimal;
  * Items can fit in the packaging so long as their dimensions are all smaller than
  * the packaging's dimensions.
  */
-public class Packaging {
+public abstract class Packaging {
     /**
      * The material this packaging is made of.
      */
     private Material material;
-
-    /**
-     * This packaging's length.
-     */
-    //private BigDecimal length;
-
-    /**
-     * This packaging's smallest dimension.
-     */
-    //private BigDecimal width;
-
-    /**
-     * This packaging's largest dimension.
-     */
-    //private BigDecimal height;
-
-    /**
-     * Instantiates a new Packaging object.
-     * @param material - the Material of the package
-     * @param length - the length of the package
-     * @param width - the width of the package
-     * @param height - the height of the package
-     */
-    //    public Packaging(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
-    //        this.material = material;
-    //        this.length = length;
-    //        this.width = width;
-    //        this.height = height;
-    //    }
 
     /**
      *
@@ -65,17 +36,13 @@ public class Packaging {
      * @return whether the item will fit in this packaging
      * */
 
-    public boolean canFitItem(Item item) {
-        return false;
-    }
+    public abstract boolean canFitItem(Item item);
 
     /**
      * Returns the mass of the packaging in grams. The packaging weighs 1 gram per square centimeter.
      * @return the mass of the packaging
      */
-    public BigDecimal getMass() {
-        return BigDecimal.valueOf(0);
-    }
+    public abstract BigDecimal getMass();
 
     @Override
     public boolean equals(Object o) {
@@ -98,8 +65,8 @@ public class Packaging {
         return getMaterial() == packaging.getMaterial();
     }
 
-    //@Override
-    //public int hashCode() {
-    //    return Objects.hash(getMaterial(), this.getlength(), this.getwidth(), this.getheight());
-    //}
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMaterial());
+    }
 }
