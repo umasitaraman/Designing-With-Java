@@ -4,8 +4,10 @@ import com.amazon.ata.types.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,6 +32,12 @@ class PackagingDatastoreTest {
     Packaging package60Cm = new Box(Material.CORRUGATE,
             BigDecimal.valueOf(60), BigDecimal.valueOf(60), BigDecimal.valueOf(60));
 
+    Packaging package2000cc = new PolyBag(Material.LAMINATED_PLASTIC,
+            BigDecimal.valueOf(2000));
+
+    Packaging package10000cc = new PolyBag(Material.LAMINATED_PLASTIC,
+            BigDecimal.valueOf(10000));
+
     FcPackagingOption ind1_10Cm = new FcPackagingOption(ind1, package10Cm);
     FcPackagingOption abe2_20Cm = new FcPackagingOption(abe2, package20Cm);
     FcPackagingOption abe2_40Cm = new FcPackagingOption(abe2, package40Cm);
@@ -37,6 +45,8 @@ class PackagingDatastoreTest {
     FcPackagingOption yow4_20Cm = new FcPackagingOption(yow4, package20Cm);
     FcPackagingOption yow4_60Cm = new FcPackagingOption(yow4, package60Cm);
     FcPackagingOption iad2_20Cm = new FcPackagingOption(iad2, package20Cm);
+    FcPackagingOption iad3_2000cc = new FcPackagingOption(iad2, package2000cc);
+    FcPackagingOption iad4_10000cc = new FcPackagingOption(iad2, package10000cc);
     FcPackagingOption pdx1_40Cm = new FcPackagingOption(pdx1, package40Cm);
     FcPackagingOption pdx1_60Cm = new FcPackagingOption(pdx1, package60Cm);
 
@@ -46,10 +56,11 @@ class PackagingDatastoreTest {
         // GIVEN
         PackagingDatastore packagingDatastore = new PackagingDatastore();
         List<FcPackagingOption> expectedPackagingOptions = Arrays.asList(ind1_10Cm, abe2_20Cm, abe2_40Cm, yow4_10Cm,
-                yow4_20Cm, yow4_60Cm, iad2_20Cm, iad2_20Cm, pdx1_40Cm, pdx1_60Cm, pdx1_60Cm);
+                yow4_20Cm, yow4_60Cm, iad2_20Cm, iad3_2000cc, iad4_10000cc, iad2_20Cm, pdx1_40Cm, pdx1_60Cm, pdx1_60Cm);
 
         // WHEN
         List<FcPackagingOption> fcPackagingOptions = packagingDatastore.getFcPackagingOptions();
+
 
         // THEN
         assertEquals(expectedPackagingOptions.size(), fcPackagingOptions.size(),

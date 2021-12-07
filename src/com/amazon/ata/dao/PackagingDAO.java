@@ -10,7 +10,11 @@ import com.amazon.ata.types.Packaging;
 import com.amazon.ata.types.ShipmentOption;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Access data for which packaging is available at which fulfillment center.
@@ -19,14 +23,25 @@ public class PackagingDAO {
     /**
      * A list of fulfillment centers with a packaging options they provide.
      */
-    private List<FcPackagingOption> fcPackagingOptions;
+    //private List<FcPackagingOption> fcPackagingOptions;
+    Map<FulfillmentCenter, Set<FcPackagingOption>> fcPackagingOptions = new HashMap<>();
 
     /**
      * Instantiates a PackagingDAO object.
      * @param datastore Where to pull the data from for fulfillment center/packaging available mappings.
      */
     public PackagingDAO(PackagingDatastore datastore) {
-        this.fcPackagingOptions =  new ArrayList<>(datastore.getFcPackagingOptions());
+
+        for (FcPackagingOption option : datastore.getFcPackagingOptions()) {
+            Set<FcPackagingOption> value = fcPackagingOptions.get(option.getFulfillmentCenter());
+            if (value == null) {
+                value = new HashSet<>();
+                value.add(option);
+            } else {
+                value.add(option);
+            }
+            fcPackagingOptions.put(option.getFulfillmentCenter(), value);
+        }
     }
 
     /**
@@ -46,12 +61,12 @@ public class PackagingDAO {
         // Check all FcPackagingOptions for a suitable Packaging in the given FulfillmentCenter
         List<ShipmentOption> result = new ArrayList<>();
         boolean fcFound = false;
-        for (FcPackagingOption fcPackagingOption : fcPackagingOptions) {
-            Packaging packaging = fcPackagingOption.getPackaging();
-            String fcCode = fcPackagingOption.getFulfillmentCenter().getFcCode();
 
-            if (fcCode.equals(fulfillmentCenter.getFcCode())) {
-                fcFound = true;
+        if (fcPackagingOptions.containsKey(fulfillmentCenter)) {
+            fcFound = true;
+            Set<FcPackagingOption> newPackagingOption = fcPackagingOptions.get(fulfillmentCenter);
+            for (FcPackagingOption fcPackagingOption : newPackagingOption) {
+                Packaging packaging = fcPackagingOption.getPackaging();
                 if (packaging.canFitItem(item)) {
                     result.add(ShipmentOption.builder()
                             .withItem(item)
@@ -61,6 +76,7 @@ public class PackagingDAO {
                 }
             }
         }
+
 
         // Notify caller about unexpected results
         if (!fcFound) {
