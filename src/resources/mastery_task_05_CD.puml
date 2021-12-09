@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface CostStrategy
+
+ShipmentService --o PackagingDAO
+ShipmentService --o CostStrategy
+CarbonCostStrategy ..|> CostStrategy
+MonetaryCostStrategy ..|> CostStrategy
+WeightedCostStrategy ..|> CostStrategy
+CarbonCostStrategy --o WeightedCostStrategy
+MonetaryCostStrategy --o WeightedCostStrategy
+
+class ShipmentService {
+    - packagingDAO : PackagingDAO
+    - costStrategy : CostStrategy
+
+    + ShipmentService(PackagingDAO packagingDAO, CostStrategy costStrategy)
+    + findShipmentOption(final Item item, final FulfillmentCenter fulfillmentCenter) : ShipmentOption
+    - getLowestCostShipmentOption(List<ShipmentOption> results) : ShipmentOption
+    - applyCostStrategy(List<ShipmentOption> results) : List<ShipmentCost>
+}
+
+class CarbonCostStrategy {
+    - {static} {final} SUSTAINABILITY_INDEX_CORRUGATE = BigDecimal.valueOf(0.017) : BigDecimal
+    - {static} {final} SUSTAINABILITY_INDEX_LAMINATED_PLASTIC = BigDecimal.valueOf(0.012) : BigDecimal
+    - {final} carbonCostPerGram : Map<Material, BigDecimal>
+
+    + getCost(ShipmentOption shipmentOption) : ShipmentCost
+}
+
+class MonetaryCostStrategy {
+    - {static} {final} LABOR_COST = BigDecimal.valueOf(0.43) : BigDecimal
+    - {final} materialCostPerGram : Map<Material, BigDecimal>
+
+    + getCost(ShipmentOption shipmentOption) : ShipmentCost
+}
+class WeightedCostStrategy {
+
+    + getCost(ShipmentOption shipmentOption) : ShipmentCost
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+@enduml
