@@ -9,8 +9,6 @@ import com.amazon.ata.datastore.PackagingDatastore;
 import com.amazon.ata.service.ShipmentService;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 public class App {
     /* don't instantiate me */
@@ -25,11 +23,13 @@ public class App {
     }
 
     private static CostStrategy getCostStrategy() {
-        Map<BigDecimal, CostStrategy> costStrategyWeightMap = new HashMap<>();
-        costStrategyWeightMap.put(BigDecimal.valueOf(0.80), new MonetaryCostStrategy());
-        costStrategyWeightMap.put(BigDecimal.valueOf(0.20), new CarbonCostStrategy());
+        //Map<BigDecimal, CostStrategy> costStrategyWeightMap = new HashMap<>();
+        //costStrategyWeightMap.put(BigDecimal.valueOf(0.80), new MonetaryCostStrategy());
+        //costStrategyWeightMap.put(BigDecimal.valueOf(0.20), new CarbonCostStrategy());
         //return new WeightedCostStrategy(new MonetaryCostStrategy(), new CarbonCostStrategy());
-        return new WeightedCostStrategy(costStrategyWeightMap);
+        return new WeightedCostStrategy.Builder()
+                .addStrategyWithWeight(new MonetaryCostStrategy(), BigDecimal.valueOf(0.80))
+                .addStrategyWithWeight(new CarbonCostStrategy(), BigDecimal.valueOf(0.20)).build();
     }
 
     public static ShipmentService getShipmentService() {

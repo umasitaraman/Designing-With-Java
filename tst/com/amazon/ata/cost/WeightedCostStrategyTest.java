@@ -27,7 +27,9 @@ public class WeightedCostStrategyTest {
 
         costStrategyWeightMap.put(BigDecimal.valueOf(0.80), new MonetaryCostStrategy());
         costStrategyWeightMap.put(BigDecimal.valueOf(0.20), new CarbonCostStrategy());
-        strategy = new WeightedCostStrategy(costStrategyWeightMap);
+        //strategy = new WeightedCostStrategy(costStrategyWeightMap);
+        strategy = new WeightedCostStrategy.Builder().addStrategyWithWeight(new MonetaryCostStrategy(), BigDecimal.valueOf(0.80))
+                .addStrategyWithWeight(new CarbonCostStrategy(), BigDecimal.valueOf(0.20)).build();
 
     }
 

@@ -13,12 +13,25 @@ public class WeightedCostStrategy implements CostStrategy {
 
     /**
      *
-     * @param costStrategyWeightMap Takes in a costStrategy and weight map parameter
+     * @param builder Takes in a builder parameter
      *
      */
 
-    public WeightedCostStrategy(Map<BigDecimal, CostStrategy> costStrategyWeightMap) {
-        this.costStrategyWeightMap.putAll(costStrategyWeightMap);
+    //public WeightedCostStrategy(Map<BigDecimal, CostStrategy> costStrategyWeightMap) {
+    //  this.costStrategyWeightMap.putAll(costStrategyWeightMap);
+    //  }
+
+    public WeightedCostStrategy(Builder builder) {
+        this.costStrategyWeightMap.putAll(builder.costStrategyWeightMap);
+    }
+
+    /**
+     *
+     * @return returns a new Builder for the WeightedCostStrategy Class
+     */
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -33,5 +46,33 @@ public class WeightedCostStrategy implements CostStrategy {
             blendedCost = blendedCost.add(costStrategy);
         }
         return new ShipmentCost(shipmentOption, blendedCost);
+    }
+
+    public static class Builder {
+        private Map<BigDecimal, CostStrategy> costStrategyWeightMap = new HashMap<>();
+
+        /**
+         * Sets the {@code strategies} and returns a reference to this Builder
+         * so that the methods can be chained together.
+         *
+         * @param costStrategy the {@code strategies} to put in Map as Key
+         * @param weight the {@code strategies} to put in Map as Value
+         * @return a reference to this Builder
+         */
+
+        public Builder addStrategyWithWeight(CostStrategy costStrategy, BigDecimal weight) {
+            this.costStrategyWeightMap.put(weight, costStrategy);
+            return this;
+        }
+
+        /**
+         *
+         * @return returns a new WeightedCostStrategy
+         */
+
+        public WeightedCostStrategy build() {
+            return new WeightedCostStrategy(this);
+        }
+
     }
 }
