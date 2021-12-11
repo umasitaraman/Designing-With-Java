@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,14 +19,15 @@ public class WeightedCostStrategyTest {
             new PolyBag(Material.LAMINATED_PLASTIC, BigDecimal.valueOf(2000));
 
     private WeightedCostStrategy strategy;
-    private MonetaryCostStrategy monetaryCostStrategy;
-    private CarbonCostStrategy carbonCostStrategy;
+    private Map<BigDecimal, CostStrategy> costStrategyWeightMap = new HashMap<>();
+
 
     @BeforeEach
     void setUp() {
-        monetaryCostStrategy = new MonetaryCostStrategy();
-        carbonCostStrategy = new CarbonCostStrategy();
-        strategy = new WeightedCostStrategy(monetaryCostStrategy, carbonCostStrategy);
+
+        costStrategyWeightMap.put(BigDecimal.valueOf(0.80), new MonetaryCostStrategy());
+        costStrategyWeightMap.put(BigDecimal.valueOf(0.20), new CarbonCostStrategy());
+        strategy = new WeightedCostStrategy(costStrategyWeightMap);
 
     }
 
