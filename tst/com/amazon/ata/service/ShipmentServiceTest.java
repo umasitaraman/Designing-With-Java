@@ -3,6 +3,8 @@ package com.amazon.ata.service;
 import com.amazon.ata.cost.MonetaryCostStrategy;
 import com.amazon.ata.dao.PackagingDAO;
 import com.amazon.ata.datastore.PackagingDatastore;
+import com.amazon.ata.exceptions.NoPackagingFitsItemException;
+import com.amazon.ata.exceptions.UnknownFulfillmentCenterException;
 import com.amazon.ata.types.FulfillmentCenter;
 import com.amazon.ata.types.Item;
 import com.amazon.ata.types.ShipmentOption;
@@ -55,18 +57,27 @@ class ShipmentServiceTest {
     @Test
     void findBestShipmentOption_nonExistentFCAndItemCanFit_returnsShipmentOption() {
         // GIVEN & WHEN
-        ShipmentOption shipmentOption = shipmentService.findShipmentOption(smallItem, nonExistentFC);
+        shipmentService = new ShipmentService(new PackagingDAO(new PackagingDatastore()),
+                new MonetaryCostStrategy());
+        FulfillmentCenter fulfillmentCenter = new FulfillmentCenter("nonExistentFcCode");
 
         // THEN
-        assertNull(shipmentOption);
+        //assertNull(shipmentOption);
+        assertThrows(RuntimeException.class, () -> {
+            shipmentService.findShipmentOption(smallItem, fulfillmentCenter);
+        }, "When asked to ship from an unknown fulfillment center, throw RuntimeException.");
     }
 
     @Test
     void findBestShipmentOption_nonExistentFCAndItemCannotFit_returnsShipmentOption() {
         // GIVEN & WHEN
-        ShipmentOption shipmentOption = shipmentService.findShipmentOption(largeItem, nonExistentFC);
+        shipmentService = new ShipmentService(new PackagingDAO(new PackagingDatastore()),
+                new MonetaryCostStrategy());
+        FulfillmentCenter fulfillmentCenter = new FulfillmentCenter("nonExistentFcCode");
 
         // THEN
-        assertNull(shipmentOption);
+        assertThrows(RuntimeException.class, () -> {
+            shipmentService.findShipmentOption(largeItem, fulfillmentCenter);
+        }, "When asked to ship from an unknown fulfillment center, throw RuntimeException.");
     }
 }

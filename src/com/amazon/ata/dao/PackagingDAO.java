@@ -74,6 +74,12 @@ public class PackagingDAO {
                             .withFulfillmentCenter(fulfillmentCenter)
                             .build());
                 }
+                //else {
+                //  result.add(ShipmentOption.builder()
+                //        .withItem(item)
+                //        .withFulfillmentCenter(fulfillmentCenter)
+                //        .build());
+                //}
             }
         }
 
