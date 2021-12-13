@@ -50,7 +50,7 @@ public class ShipmentService {
             List<ShipmentOption> results = this.packagingDAO.findShipmentOptions(item, fulfillmentCenter);
             return getLowestCostShipmentOption(results);
         } catch (NoPackagingFitsItemException e) {
-            ShipmentOption.builder()
+            return ShipmentOption.builder()
                     .withItem(item)
                     .withFulfillmentCenter(fulfillmentCenter)
                     .build();
