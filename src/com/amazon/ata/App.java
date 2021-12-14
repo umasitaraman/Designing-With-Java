@@ -27,7 +27,10 @@ public class App {
         //costStrategyWeightMap.put(BigDecimal.valueOf(0.80), new MonetaryCostStrategy());
         //costStrategyWeightMap.put(BigDecimal.valueOf(0.20), new CarbonCostStrategy());
         //return new WeightedCostStrategy(new MonetaryCostStrategy(), new CarbonCostStrategy());
-        return new WeightedCostStrategy.Builder()
+        //return new WeightedCostStrategy.Builder()
+        //        .addStrategyWithWeight(new MonetaryCostStrategy(), BigDecimal.valueOf(0.80))
+        //        .addStrategyWithWeight(new CarbonCostStrategy(), BigDecimal.valueOf(0.20)).build();
+        return WeightedCostStrategy.builder()
                 .addStrategyWithWeight(new MonetaryCostStrategy(), BigDecimal.valueOf(0.80))
                 .addStrategyWithWeight(new CarbonCostStrategy(), BigDecimal.valueOf(0.20)).build();
     }
