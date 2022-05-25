@@ -29,7 +29,6 @@ public class CarbonCostStrategy implements CostStrategy {
     public ShipmentCost getCost(ShipmentOption shipmentOption) {
         Packaging packaging = shipmentOption.getPackaging();
         BigDecimal sustainabilityIndex = this.carbonCostPerGram.get(packaging.getMaterial());
-
         BigDecimal carbonCost = packaging.getMass().multiply(sustainabilityIndex);
 
         return new ShipmentCost(shipmentOption, carbonCost);

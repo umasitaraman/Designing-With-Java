@@ -1,5 +1,9 @@
 package com.amazon.ata.activity;
 
+import com.amazon.ata.cost.CarbonCostStrategy;
+import com.amazon.ata.cost.CostStrategy;
+import com.amazon.ata.dao.PackagingDAO;
+import com.amazon.ata.datastore.PackagingDatastore;
 import com.amazon.ata.service.ShipmentService;
 import com.amazon.ata.types.FulfillmentCenter;
 import com.amazon.ata.types.Item;
@@ -19,10 +23,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class PrepareShipmentActivity
         implements RequestHandler<PrepareShipmentRequest, String> {
+
+    private PackagingDatastore packagingDatastore = new PackagingDatastore();
+    private PackagingDAO packagingDAO = new PackagingDAO(packagingDatastore);
+    private CostStrategy costStrategy = new CarbonCostStrategy();
+
     /**
      * Shipment service used to retrieve shipment options.
      */
-    private ShipmentService shipmentService;
+    private ShipmentService shipmentService = new ShipmentService(packagingDAO, costStrategy);
+
+    public PrepareShipmentActivity() {
+
+    }
 
     /**
      * Instantiates a new PrepareShipmentActivity object.
